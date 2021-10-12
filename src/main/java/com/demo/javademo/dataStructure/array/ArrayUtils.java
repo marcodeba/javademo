@@ -75,6 +75,23 @@ public class ArrayUtils {
         printArray(arr);
     }
 
+    /**
+     *
+     * @param arr           存储元素的数组
+     * @param size          数组元素数量
+     * @param removeIndex   删除位置
+     * @return ret          删除的元素值
+     */
+    public static int removeByIndex(int[] arr, int size, int removeIndex) {
+        if (removeIndex < 0 || removeIndex >= size)
+            throw new IllegalArgumentException("Remove failed. Index is illegal.");
+        int ret = arr[removeIndex];
+        for (int i = removeIndex; i <= size; i++)
+            arr[i] = arr[i + 1];
+        printArray(arr);
+        return ret;
+    }
+
     private static int[] initArray() {
         int[] arr = new int[10];
         arr[0] = 2;
@@ -91,8 +108,9 @@ public class ArrayUtils {
 
     public static void main(String[] args) {
         int[] arr = initArray();
-        findByIndex(arr, 3);
-        findElementInArray(arr, 12);
-        addByElement(arr, 8, 8);
+//        findByIndex(arr, 3);
+//        findElementInArray(arr, 12);
+//        addByElement(arr, 8, 8);
+        removeByIndex(arr, 8, 5);
     }
 }
