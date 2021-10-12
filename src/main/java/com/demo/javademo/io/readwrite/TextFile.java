@@ -3,6 +3,8 @@
 // a single string, and treating a file as an ArrayList.
 package com.demo.javademo.io.readwrite;
 
+import org.springframework.util.ResourceUtils;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +12,7 @@ import java.util.TreeSet;
 
 public class TextFile extends ArrayList<String> {
     // Read a file, split by any regular expression:
-    public TextFile(String fileName, String splitter) {
+    public TextFile(String fileName, String splitter) throws FileNotFoundException {
         super(Arrays.asList(read(fileName).split(splitter)));
         // Regular expression split() often leaves an empty
         // String at the first position:
@@ -18,16 +20,17 @@ public class TextFile extends ArrayList<String> {
     }
 
     // Normally read by lines:
-    public TextFile(String fileName) {
+    public TextFile(String fileName) throws FileNotFoundException {
         this(fileName, "\n");
     }
 
     // Read a file as a single string:
-    public static String read(String fileName) {
+    public static String read(String fileName) throws FileNotFoundException {
+        File file = ResourceUtils.getFile("classpath:" + fileName);
         StringBuilder sb = new StringBuilder();
         BufferedReader in = null;
         try {
-            in = new BufferedReader(new FileReader(new File(fileName).getAbsoluteFile()));
+            in = new BufferedReader(new FileReader(file));
             String s;
             while ((s = in.readLine()) != null) {
                 sb.append(s).append("\n");
@@ -61,7 +64,7 @@ public class TextFile extends ArrayList<String> {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         String file = read("TextFile.java");
         write("test.txt", file);
         TextFile text = new TextFile("test.txt");
@@ -76,7 +79,8 @@ public class TextFile extends ArrayList<String> {
     public void write(String fileName) {
         PrintWriter out = null;
         try {
-            out = new PrintWriter(new File(fileName).getAbsoluteFile());
+            File file = ResourceUtils.getFile("classpath:" + fileName);
+            out = new PrintWriter(file);
             for (String item : this) {
                 out.println(item);
             }
