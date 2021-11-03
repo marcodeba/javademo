@@ -11,6 +11,7 @@ import java.util.Arrays;
 public class ArrayUtils {
     /**
      * 打印数组
+     *
      * @param array
      */
     public static void printArray(int[] array) {
@@ -21,6 +22,7 @@ public class ArrayUtils {
 
     /**
      * 根据索引下标返回数组索引下标值
+     *
      * @param arr
      * @param index
      * @return
@@ -36,6 +38,7 @@ public class ArrayUtils {
 
     /**
      * 数组中找到指定element的索引下标值
+     *
      * @param arr
      * @param element
      * @return
@@ -55,9 +58,10 @@ public class ArrayUtils {
 
     /**
      * 数组中添加元素，如果数组满了则报错
-     * @param arr       存储元素的数组
-     * @param size      数组中已经存储的元素数量，注意这个size只有在数组满了的情况下才会等于length
-     * @param element   要插入数组的新元素
+     *
+     * @param arr     存储元素的数组
+     * @param size    数组中已经存储的元素数量，注意这个size只有在数组满了的情况下才会等于length
+     * @param element 要插入数组的新元素
      */
     public static void addByElement(int[] arr, int size, int element) {
         if (size >= arr.length) {
@@ -81,9 +85,10 @@ public class ArrayUtils {
 
     /**
      * 数组中删除指定位置的元素
-     * @param arr           存储元素的数组
-     * @param size          数组元素数量
-     * @param removeIndex   删除位置
+     *
+     * @param arr         存储元素的数组
+     * @param size        数组元素数量
+     * @param removeIndex 删除位置
      * @return ret          删除的元素值
      */
     public static int removeByIndex(int[] arr, int size, int removeIndex) {
@@ -166,8 +171,8 @@ public class ArrayUtils {
 //        int[] result = mergeV1(nums1, 0, nums2, 1);
 //        printArray(result);
 
-        int[] nums1 = {1,2,3,0,0,0};
-        int[] nums2 = {2,5,6};
+        int[] nums1 = {1, 2, 3, 0, 0, 0};
+        int[] nums2 = {2, 5, 6};
         int[] result = mergeV2(nums1, 3, nums2, 3);
         printArray(result);
     }

@@ -15,7 +15,8 @@ public class ApplicationStartup {
         services.add(new DatabaseHealthChecker(countDownLatch));
     }
 
-    private ApplicationStartup() {}
+    private ApplicationStartup() {
+    }
 
     public static boolean checkExternalServices() throws Exception {
         for (BaseHealthChecker baseChecker : services) {
