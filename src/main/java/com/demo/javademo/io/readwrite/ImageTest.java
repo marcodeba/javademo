@@ -12,7 +12,8 @@ import java.net.URLConnection;
  * @date: 2021年11月03日 1:41 下午
  */
 public class ImageTest {
-    public static final String PIC_PATH = "https://mmbiz.qpic.cn/mmbiz_png/UHKG18j8iasZm2XZtyI3tl6fVGBK6FoQupicB2zOv0D7aokicV7L1J63vSdXr5xbIGdwiaYTW2Eaqbkjy6IDzXGtLw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1";
+    public static final String PIC_PATH = "https://www.manutouch.com.cn/wechat/resources/image/claim/example10.jpg";
+    //"https://mmbiz.qpic.cn/mmbiz_png/UHKG18j8iasZm2XZtyI3tl6fVGBK6FoQupicB2zOv0D7aokicV7L1J63vSdXr5xbIGdwiaYTW2Eaqbkjy6IDzXGtLw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1";
     //"https://mmbiz.qpic.cn/mmbiz_png/UHKG18j8iasZm2XZtyI3tl6fVGBK6FoQu8jvra9Q3mic9licwzpmqNjvYqeHJ1EdRJHzIqXQG8JEjuRK4wT9Ku5Qw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1";
 
     public static void main(String[] args) throws Exception {
@@ -63,7 +64,7 @@ public class ImageTest {
     }
 
     /**
-     * 下载(网络图片)保存到本地（不改变原(图片)大小,原来是多大,下载下来后也是多大） - 要放在线程中进行下载
+     * 下载(网络图片)保存到本地（不改变原(图片)大小，原来是多大,下载下来后也是多大） - 要放在线程中进行下载
      *
      * @param picPath 网络(图片)下载地址
      * @param file    下载保存的文件   new File("/storage/emulated/0/kid.jpg")  或者  new File("/storage/emulated/0","kid.jpg") 都可以  --> 下载的图片命名为kid.jpg,保存到/storage/emulated/0路径下，也可以不写后缀
@@ -83,6 +84,7 @@ public class ImageTest {
             httpURLConnection.setRequestProperty("Charset", "UTF-8");
 
             BufferedInputStream bin = new BufferedInputStream(httpURLConnection.getInputStream());
+            long begin = System.currentTimeMillis();
             BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));
             int size = 0;
             //int len = 0;
@@ -95,6 +97,7 @@ public class ImageTest {
             }
             bin.close();
             out.close();
+            System.out.println("保存文件耗时：" + (System.currentTimeMillis() - begin));
         } catch (Exception e) {   // 这里要开线程运行，否则会报异常android.os.NetworkOnMainThreadException
             e.printStackTrace();
         } finally {

@@ -10,9 +10,10 @@ public class ThreadPoolDemo {
         ExecutorService executorService2 = Executors.newCachedThreadPool();//快
         // 一个个地跑
         ExecutorService executorService3 = Executors.newSingleThreadExecutor();//最慢
+        // 自定义线程池
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 20,
-                0L, TimeUnit.MILLISECONDS,
-                new ArrayBlockingQueue<>(10));
+                0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(10));
+
         for (int i = 0; i < 100; i++) {
             threadPoolExecutor.execute(new MyTask(i));
         }
@@ -35,5 +36,4 @@ public class ThreadPoolDemo {
             }
         }
     }
-
 }
