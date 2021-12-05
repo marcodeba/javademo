@@ -1,7 +1,6 @@
 package com.demo.javademo.concurrency.threadbase;
 
 /**
- * @author Fox
  * 一个简单卖票程序:多个窗口卖票
  */
 public class SellTicketDemo implements Runnable {

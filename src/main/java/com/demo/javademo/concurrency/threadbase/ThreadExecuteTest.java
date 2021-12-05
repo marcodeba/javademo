@@ -10,20 +10,12 @@ import java.util.concurrent.FutureTask;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * @author Fox
- */
 @Slf4j
 public class ThreadExecuteTest {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                log.debug("通过Runnable方式执行任务");
-            }
-        };
+        Runnable runnable = () -> log.debug("通过Runnable方式执行任务");
 
         // 操作系统创建线程
         // java Thread --> jvm JavaThread---->os Thread
@@ -35,7 +27,6 @@ public class ThreadExecuteTest {
         // 这是一个真正的线程吗？  普通对象的方法调用
         new Thread(runnable).run();
         runnable.run();
-
 
 //        FutureTask task = new FutureTask(new Callable() {
 //            @Override
@@ -51,7 +42,6 @@ public class ThreadExecuteTest {
 
 
 //        ExecutorService executor = Executors.newFixedThreadPool(2);
-//
 //        log.debug("monkey下班回家做饭");
 //        Future<String> future = executor.submit(new Callable<String>() {
 //            @Override

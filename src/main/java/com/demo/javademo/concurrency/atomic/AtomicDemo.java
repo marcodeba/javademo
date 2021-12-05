@@ -1,4 +1,4 @@
-package com.demo.javademo.concurrency;
+package com.demo.javademo.concurrency.atomic;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;

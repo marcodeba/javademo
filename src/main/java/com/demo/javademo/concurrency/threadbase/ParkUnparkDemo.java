@@ -14,8 +14,6 @@ public class ParkUnparkDemo {
         new ParkUnparkDemo().parkUnparkExceptionTest();
         //new ParkUnparkDemo().moreUnparkTest();
         //new ParkUnparkDemo().moreParkTest();
-
-
     }
 
     /**

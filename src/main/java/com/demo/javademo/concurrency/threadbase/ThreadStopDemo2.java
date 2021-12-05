@@ -1,8 +1,5 @@
 package com.demo.javademo.concurrency.threadbase;
 
-/**
- * @author Fox
- */
 public class ThreadStopDemo2 implements Runnable {
 
     @Override

@@ -39,6 +39,7 @@ public class PipedTest {
                     System.out.print((char) receive);
                 }
             } catch (IOException ex) {
+
             }
         }
     }

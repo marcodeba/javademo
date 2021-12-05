@@ -1,38 +1,32 @@
 package com.demo.javademo.concurrency.threadbase;
 
-import java.util.concurrent.locks.LockSupport;
-
 /**
- * @author Fox
  * 中断机制
  */
 public class ThreadInterruptTest {
-
     static int i = 0;
 
     public static void main(String[] args) {
         System.out.println("begin");
-        Thread t1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    i++;
-                    System.out.println(i);
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        Thread t1 = new Thread(() -> {
+            while (true) {
+                i++;
+                System.out.println(i);
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    System.out.println("InterruptedException");
+                    e.printStackTrace();
+                }
 
-                    //Thread.interrupted()  清除中断标志位
-                    //Thread.currentThread().isInterrupted() 不会清除中断标志位
-                    if (Thread.interrupted()) {
-                        System.out.println("=========");
-                    }
-                    if (i == 10) {
-                        break;
-                    }
-
+                //Thread.interrupted()  清除中断标志位
+                //Thread.currentThread().isInterrupted() 不会清除中断标志位
+                if (Thread.currentThread().isInterrupted()) {
+                    //if (Thread.interrupted()) {
+                    System.out.println("=========");
+                }
+                if (i == 10) {
+                    break;
                 }
             }
         });
@@ -40,6 +34,5 @@ public class ThreadInterruptTest {
         t1.start();
         //不会停止线程t1,只会设置一个中断标志位 flag=true
         t1.interrupt();
-
     }
 }

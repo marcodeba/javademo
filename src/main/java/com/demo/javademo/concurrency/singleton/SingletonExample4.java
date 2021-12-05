@@ -1,6 +1,5 @@
 package com.demo.javademo.concurrency.singleton;
 
-
 import com.demo.javademo.annoations.NotThreadSafe;
 
 /**
