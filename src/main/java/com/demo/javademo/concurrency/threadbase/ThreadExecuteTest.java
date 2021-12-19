@@ -22,7 +22,6 @@ public class ThreadExecuteTest {
 
         // new Thread(runnable).start();
         // new Object()--->jvm JavaThread
-
         new Thread(runnable).start();
         // 这是一个真正的线程吗？  普通对象的方法调用
         new Thread(runnable).run();

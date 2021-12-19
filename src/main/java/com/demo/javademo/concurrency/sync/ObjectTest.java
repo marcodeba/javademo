@@ -29,14 +29,14 @@ public class ObjectTest {
                 e.printStackTrace();
             }
         }, "Thread1").start();
-//
-//        Thread.sleep(2000);
-//
-//        new Thread(() -> {
-//            synchronized (obj) {
-//                System.out.println(Thread.currentThread().getName() + "\n" + ClassLayout.parseInstance(obj).toPrintable());
-//            }
-//        }, "Thread2").start();
+
+        Thread.sleep(2000);
+
+        new Thread(() -> {
+            synchronized (obj) {
+                System.out.println(Thread.currentThread().getName() + "\n" + ClassLayout.parseInstance(obj).toPrintable());
+            }
+        }, "Thread2").start();
     }
 }
 

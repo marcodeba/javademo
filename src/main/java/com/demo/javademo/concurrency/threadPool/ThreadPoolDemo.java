@@ -15,6 +15,9 @@ public class ThreadPoolDemo {
                 0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(10));
 
         for (int i = 0; i < 100; i++) {
+//            executorService1.execute(new MyTask(i));
+//            executorService2.execute(new MyTask(i));
+//            executorService3.execute(new MyTask(i));
             threadPoolExecutor.execute(new MyTask(i));
         }
     }

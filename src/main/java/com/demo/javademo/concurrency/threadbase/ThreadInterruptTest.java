@@ -10,19 +10,12 @@ public class ThreadInterruptTest {
         System.out.println("begin");
         Thread t1 = new Thread(() -> {
             while (true) {
-                i++;
-                System.out.println(i);
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    System.out.println("InterruptedException");
-                    e.printStackTrace();
-                }
+                System.out.println(i++);
 
                 //Thread.interrupted()  清除中断标志位
                 //Thread.currentThread().isInterrupted() 不会清除中断标志位
                 if (Thread.currentThread().isInterrupted()) {
-                    //if (Thread.interrupted()) {
+//                if (Thread.interrupted()) {
                     System.out.println("=========");
                 }
                 if (i == 10) {
