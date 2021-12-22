@@ -1,5 +1,7 @@
 package com.demo.javademo.concurrency.threadbase;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author：marco.pan
  * @ClassName：StopThread
@@ -18,15 +20,13 @@ public class StopThread implements Runnable {
              * 同时清除中断信号，将中断标记位设置成 false。这样就会导致 Thread.currentThread().isInterrupted()为false，
              * 程序会在不满足count < 1000这个条件时退出。如果不在catch中重新手动添加中断信号，不做任何处理，就会屏蔽中断请求，
              * 有可能导致线程无法正确停止。
-             * sleep可以被中断抛出中断异常：sleep interrupted，清除中断标志位
-             * wait可以被中断抛出中断异常：InterruptedException，清除中断标志位
              */
 //            try {
 //                Thread.sleep(1);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //                //重新设置线程中断状态为true
-//                //Thread.currentThread().interrupt();
+//                Thread.currentThread().interrupt();
 //            }
         }
         System.out.println("线程停止: stop thread");
@@ -35,7 +35,7 @@ public class StopThread implements Runnable {
     public static void main(String[] args) throws InterruptedException {
         Thread thread = new Thread(new StopThread());
         thread.start();
-        Thread.sleep(5);
+        TimeUnit.MILLISECONDS.sleep(5);
         thread.interrupt();
     }
 }

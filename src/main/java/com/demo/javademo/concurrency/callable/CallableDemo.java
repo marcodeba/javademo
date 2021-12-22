@@ -15,7 +15,8 @@ public class CallableDemo implements Callable<String> {
 
     @Override
     public String call() throws Exception {
-        Thread.sleep(3000);//阻塞案例演示
+        //阻塞案例演示
+        TimeUnit.SECONDS.sleep(3);
         return "hello world";
     }
 }

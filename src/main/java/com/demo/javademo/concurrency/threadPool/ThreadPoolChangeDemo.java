@@ -49,6 +49,9 @@ public class ThreadPoolChangeDemo {
         executor.setCorePoolSize(10);
         executor.setMaximumPoolSize(10);
         executor.prestartAllCoreThreads();
+        System.out.println("====================================");
+        System.out.println("====================================");
+        System.out.println("====================================");
         threadPoolStatus(executor, "改变之后");
         Thread.currentThread().join();
     }
