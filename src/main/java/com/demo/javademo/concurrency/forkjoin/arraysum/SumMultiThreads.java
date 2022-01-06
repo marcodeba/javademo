@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class SumMultiThreads {
-    public final static int NUM = 1000;
+    public final static int NUM = 10000000;
 
     public static long sum(int[] arr, ExecutorService executor) throws Exception {
         long result = 0;

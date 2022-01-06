@@ -21,13 +21,13 @@ public class StopThread implements Runnable {
              * 程序会在不满足count < 1000这个条件时退出。如果不在catch中重新手动添加中断信号，不做任何处理，就会屏蔽中断请求，
              * 有可能导致线程无法正确停止。
              */
-//            try {
-//                Thread.sleep(1);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//                //重新设置线程中断状态为true
-//                Thread.currentThread().interrupt();
-//            }
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                //重新设置线程中断状态为true
+                Thread.currentThread().interrupt();
+            }
         }
         System.out.println("线程停止: stop thread");
     }

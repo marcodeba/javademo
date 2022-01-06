@@ -10,7 +10,7 @@ import java.util.concurrent.RecursiveTask;
  */
 class LongSumForkJoinTask extends RecursiveTask<Long> {
     // 任务拆分最小阀值
-    static final int SEQUENTIAL_THRESHOLD = 1000;
+    static final int SEQUENTIAL_THRESHOLD = 1000000;
     int low;
     int high;
     int[] array;

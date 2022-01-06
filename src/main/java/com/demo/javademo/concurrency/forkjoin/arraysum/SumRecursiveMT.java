@@ -10,13 +10,12 @@ import java.util.concurrent.Future;
 public class SumRecursiveMT {
     public static long sum(int[] arr) throws Exception {
         // 12
-        int nofProcessors = Runtime.getRuntime().availableProcessors();
+//        int nofProcessors = Runtime.getRuntime().availableProcessors();
 //        ExecutorService executorService = Executors.newFixedThreadPool(nofProcessors);
         ExecutorService executorService = Executors.newCachedThreadPool();
 
         RecursiveSumTask task = new RecursiveSumTask(executorService, arr, 0, arr.length);
-        long result = executorService.submit(task).get();
-        return result;
+        return executorService.submit(task).get();
     }
 
     public static void main(String[] args) throws Exception {
@@ -28,7 +27,8 @@ public class SumRecursiveMT {
     }
 
     public static class RecursiveSumTask implements Callable<Long> {
-        public static final int SEQUENTIAL_CUTOFF = 1000;
+        // 拆分粒度
+        public static final int SEQUENTIAL_CUTOFF = 10000000;
         int lo;
         int hi;
         int[] arr; // arguments
@@ -59,7 +59,6 @@ public class SumRecursiveMT {
                 System.out.format("%s range [%d-%d] finished to compute %n",
                         Thread.currentThread().getName(), lo, hi);
             }
-
             return result;
         }
     }
