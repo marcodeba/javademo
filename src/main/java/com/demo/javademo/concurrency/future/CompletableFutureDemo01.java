@@ -10,8 +10,10 @@ public class CompletableFutureDemo01 {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Runnable runnable = () -> log.info("执行无返回结果的异步任务");
+        // 执行无返回值得异步任务
         CompletableFuture.runAsync(runnable);
 
+        // 执行有返回值的异步任务，返回值类型是String
         CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
             log.info("执行有返回值的异步任务");
             try {
@@ -21,6 +23,6 @@ public class CompletableFutureDemo01 {
             }
             return "Hello World";
         });
-        log.info(future.join());
+        log.info(future.get());
     }
 }

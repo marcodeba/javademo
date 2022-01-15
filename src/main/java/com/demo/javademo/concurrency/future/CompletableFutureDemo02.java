@@ -27,19 +27,13 @@ public class CompletableFutureDemo02 {
             return "test";
         });
 
-        future.whenComplete(new BiConsumer<String, Throwable>() {
-            @Override
-            public void accept(String t, Throwable action) {
-                System.out.println(t + " 执行完成！");
-            }
-        });
+        // 执行结束调这里（无论正常执行还是抛异常，都会执行whenComplete）
+        future.whenComplete((t, action) -> System.out.println(t + " 执行完成！"));
 
-        future.exceptionally(new Function<Throwable, String>() {
-            @Override
-            public String apply(Throwable t) {
-                System.out.println("执行失败：" + t.getMessage());
-                return "异常xxxx";
-            }
+        // 执行有异常调这里
+        future.exceptionally(t -> {
+            System.out.println("执行失败：" + t.getMessage());
+            return "异常xxxx";
         }).join();
     }
 }

@@ -2,16 +2,12 @@ package com.demo.javademo.concurrency.future;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 @Slf4j
 public class FutureTaskDemo2 {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) throws ExecutionException, InterruptedException, TimeoutException {
         FutureTask<String> ft1 = new FutureTask<>(() -> {
             System.out.println("T1:查询商品基本信息...");
             TimeUnit.MILLISECONDS.sleep(5000);
@@ -48,11 +44,11 @@ public class FutureTaskDemo2 {
 
         long start = System.currentTimeMillis();
         //获取执行结果
-        System.out.println(ft1.get());
-        System.out.println(ft2.get());
-        System.out.println(ft3.get());
-        System.out.println(ft4.get());
-        System.out.println(ft5.get());
+        System.out.println(ft1.get(5, TimeUnit.SECONDS));
+        System.out.println(ft2.get(5, TimeUnit.SECONDS));
+        System.out.println(ft3.get(5, TimeUnit.SECONDS));
+        System.out.println(ft4.get(5, TimeUnit.SECONDS));
+        System.out.println(ft5.get(5, TimeUnit.SECONDS));
 
         log.info("cost:" + (System.currentTimeMillis() - start));
         executorService.shutdown();

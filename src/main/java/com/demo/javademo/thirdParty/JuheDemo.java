@@ -19,7 +19,6 @@ public class JuheDemo {
 
     //1.根据城市查询天气
     public static void getRequest1() {
-        String result = null;
         String url = "http://op.juhe.cn/onebox/weather/query";//请求接口地址
         Map params = new HashMap();//请求参数
         params.put("cityname", "上海");//要查询的城市，如：温州、上海、北京
@@ -27,7 +26,7 @@ public class JuheDemo {
         params.put("dtype", "");//返回数据的格式,xml或json，默认json
 
         try {
-            result = net(url, params, "GET");
+            String result = net(url, params, "GET");
             JSONObject object = JSONObject.fromObject(result);
             if (object.getInt("error_code") == 0) {
                 System.out.println(object.get("result"));

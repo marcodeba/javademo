@@ -2,9 +2,9 @@ package com.demo.javademo.thirdParty;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import javax.crypto.Cipher;
 import java.io.BufferedReader;
@@ -21,9 +21,28 @@ import java.security.spec.X509EncodedKeySpec;
 @Slf4j
 @Component
 public class RSA2Util {
-
     private static final String SIGNATURE_ALGORITHM = "RSA";
     private static final String SIGN_SHA256RSA_ALGORITHMS = "SHA256WithRSA";
+
+    public static void main(String[] args) {
+        System.out.println("处理完成");
+        try {
+            String msg = "RSA2测试通讯";
+            String serverPrivate = RSA2Util.readPrivateKeyStr("E:\\workspace5\\cert\\mk_server\\server_app_private_key_pkcs8.pem");
+            String serverPublic = RSA2Util.readPrivateKeyStr("E:\\workspace5\\cert\\mk_server\\server_app_public_key.pem");
+            // 加签
+            String sign = RSA2Util.sign(msg, serverPrivate);
+            RSA2Util.checkSign(msg, sign, serverPublic);
+
+            String clientPrivate = RSA2Util.readPrivateKeyStr("E:\\workspace5\\cert\\mk_client\\client_app_private_key_pkcs8.pem");
+            String clientPublic = RSA2Util.readPrivateKeyStr("E:\\workspace5\\cert\\mk_client\\client_app_public_key.pem");
+            String encMsg = RSA2Util.encrypt(msg, clientPublic);
+            String decMsg = RSA2Util.decrypt(encMsg, clientPrivate);
+            System.out.println("处理完成\r\n" + decMsg + "\r\n");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param KeyAddr
@@ -34,7 +53,7 @@ public class RSA2Util {
     @SuppressWarnings("resource")
     public static String readPrivateKeyStr(String KeyAddr) {
         String str = "";
-        if (StringUtils.isEmpty(KeyAddr)) {
+        if (StringUtils.isBlank(KeyAddr)) {
             return str;
         }
         try {
@@ -198,24 +217,4 @@ public class RSA2Util {
 		}
 		
 	}*/
-
-    public static void main(String[] args) {
-        System.out.println("处理完成");
-        try {
-            String msg = "RSA2测试通讯";
-            String serverPrivate = RSA2Util.readPrivateKeyStr("E:\\workspace5\\cert\\mk_server\\server_app_private_key_pkcs8.pem");
-            String serverPublic = RSA2Util.readPrivateKeyStr("E:\\workspace5\\cert\\mk_server\\server_app_public_key.pem");
-            // 加签
-            String sign = RSA2Util.sign(msg, serverPrivate);
-            RSA2Util.checkSign(msg, sign, serverPublic);
-
-            String clientPrivate = RSA2Util.readPrivateKeyStr("E:\\workspace5\\cert\\mk_client\\client_app_private_key_pkcs8.pem");
-            String clientPublic = RSA2Util.readPrivateKeyStr("E:\\workspace5\\cert\\mk_client\\client_app_public_key.pem");
-            String encMsg = RSA2Util.encrypt(msg, clientPublic);
-            String decMsg = RSA2Util.decrypt(encMsg, clientPrivate);
-            System.out.println("处理完成\r\n" + decMsg + "\r\n");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

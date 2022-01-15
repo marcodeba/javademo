@@ -9,16 +9,12 @@ import java.util.concurrent.TimeUnit;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * @author Fox
- * 电商询价业务
- */
 @Slf4j
 public class CompletionServiceDemo {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         //创建线程池
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         //创建CompletionService
         CompletionService<Integer> service = new ExecutorCompletionService<>(executor);
         final long start = System.currentTimeMillis();
