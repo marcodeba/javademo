@@ -41,7 +41,7 @@ public class TokenDemo {
     //拿到token后进行验证和解析
     public static String verifyAndParseToken(String token) {
         if (StringUtils.isEmpty(token)) {
-            return null;
+            throw new IllegalArgumentException("token is empty");
         }
         JWTVerifier verifier = JWT.require(ALGORITHM).withIssuer(ISSUER).build();
         try {

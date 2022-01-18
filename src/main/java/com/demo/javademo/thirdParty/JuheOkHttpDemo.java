@@ -1,5 +1,6 @@
 package com.demo.javademo.thirdParty;
 
+import com.demo.javademo.util.OkHttp3Util;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import okhttp3.OkHttpClient;
@@ -31,13 +32,15 @@ public class JuheOkHttpDemo {
         params.put("key", APPKEY);//应用APPKEY(应用详细页查询)
         params.put("dtype", "");//返回数据的格式,xml或json，默认json
 
+//        log.info("result = {}", OkHttp3Util.postForm(REQUEST_URL, params));
+
         try {
-            String result = this.getRequestURL(REQUEST_URL, params, "GET");
+            String result = this.getResultByUrl(REQUEST_URL, params, "GET");
             JSONObject object = JSONObject.fromObject(result);
             if (object.getInt("error_code") == 0) {
                 log.info("weather result {}", object.get("result"));
             } else {
-                System.out.println(object.get("error_code") + ":" + object.get("reason"));
+                log.info(object.get("error_code") + ":" + object.get("reason"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,12 +54,12 @@ public class JuheOkHttpDemo {
      * @return 网络请求字符串
      * @throws Exception
      */
-    public String getRequestURL(String strUrl, Map params, String method) throws Exception {
+    public String getResultByUrl(String strUrl, Map params, String method) {
         if (method == null || method.equals("GET")) {
             strUrl = strUrl + "?" + urlencode(params);
         }
-
-        return this.doOkHttpRequest(strUrl);
+        log.info(strUrl);
+        return OkHttp3Util.sendByGetUrl(strUrl);
     }
 
     //将map型转为请求参数型
@@ -70,15 +73,5 @@ public class JuheOkHttpDemo {
             }
         }
         return sb.toString();
-    }
-
-    public String doOkHttpRequest(String strUrl) throws IOException {
-        log.info("request url: {}", strUrl);
-
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(strUrl).build();
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        }
     }
 }
