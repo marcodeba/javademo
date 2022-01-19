@@ -13,15 +13,6 @@ public class CompletableFutureDemo {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
 
         log.debug("monkey进入餐厅，点了份西红柿炒番茄");
-//        CompletableFuture<String> cf = CompletableFuture.supplyAsync(() -> {
-//            log.debug("厨师炒菜");
-//            sleep(2, TimeUnit.SECONDS);
-//            return "西红柿炒番茄好了";
-//        }, executorService).thenApply(s -> {
-//            log.debug("服务员打饭");
-//            sleep(1, TimeUnit.SECONDS);
-//            return s + ",饭打好了";
-//        });
         CompletableFuture<String> cf = CompletableFuture.supplyAsync(() -> {
             log.debug("厨师炒菜");
             sleep(2, TimeUnit.SECONDS);
@@ -75,6 +66,7 @@ public class CompletableFutureDemo {
         });
 
         log.debug("{},monkey坐车回家", cf.join());
+        executorService.shutdown();
     }
 
     static void sleep(int t, TimeUnit u) {
