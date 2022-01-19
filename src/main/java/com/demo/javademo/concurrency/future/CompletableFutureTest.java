@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -16,6 +19,8 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class CompletableFutureTest {
+    static ExecutorService executorService = Executors.newFixedThreadPool(10);
+
     private static List<Shop> shopList = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -46,11 +51,12 @@ public class CompletableFutureTest {
                 //转异步执行
                 .map(shop -> CompletableFuture.supplyAsync(
                         () -> String.format("%s price is %.2f",
-                                shop.getName(), shop.getPrice(product))))
+                                shop.getName(), shop.getPrice(product)), executorService))
                 .collect(Collectors.toList());
         return completableFutureList.stream().map(CompletableFuture::join).collect(Collectors.toList());
     }
 
+    @Slf4j
     static class Shop {
         private String name;
         private Random random = new Random();
@@ -81,6 +87,7 @@ public class CompletableFutureTest {
          * @return
          */
         private double calculatePrice(String product) {
+            log.info("calculatePrice");
             delay();
             //random.nextDouble()随机返回折扣
             return random.nextDouble() * product.charAt(0) + product.charAt(1);
@@ -91,7 +98,7 @@ public class CompletableFutureTest {
          */
         private void delay() {
             try {
-                Thread.sleep(1000);
+                TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
