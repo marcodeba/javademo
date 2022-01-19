@@ -13,9 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FutureDemo {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        new Thread(() -> {
-            log.debug("通过Runnable方式执行任务");
-        }).start();
+        new Thread(() -> log.debug("通过Runnable方式执行任务")).start();
 
 //        new Thread(new Runnable() {
 //            @Override

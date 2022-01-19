@@ -14,7 +14,7 @@ public class CompletableFutureDemo01 {
         CompletableFuture.runAsync(runnable);
 
         // 执行有返回值的异步任务，返回值类型是String
-        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {
             log.info("执行有返回值的异步任务");
             try {
                 Thread.sleep(5000);
@@ -23,6 +23,6 @@ public class CompletableFutureDemo01 {
             }
             return "Hello World";
         });
-        log.info(future.get());
+        log.info(completableFuture.join());
     }
 }

@@ -1,5 +1,7 @@
 package com.demo.javademo.concurrency.future;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -10,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * 烧水泡茶程序
  */
+@Slf4j
 public class FutureTaskDemo3 {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -25,12 +28,13 @@ public class FutureTaskDemo3 {
         Thread T2 = new Thread(ft2);
         T2.start();
         // 等待线程T1执行结果
-        System.out.println(ft1.get());
+        log.info(ft1.get());
     }
 }
 
 // T1Task需要执行的任务：
 // 洗水壶、烧开水、泡茶
+@Slf4j
 class T1Task implements Callable<String> {
     FutureTask<String> ft2;
 
@@ -41,32 +45,33 @@ class T1Task implements Callable<String> {
 
     @Override
     public String call() throws Exception {
-        System.out.println("T1:洗水壶...");
+        log.info("T1:洗水壶...");
         TimeUnit.SECONDS.sleep(1);
 
-        System.out.println("T1:烧开水...");
+        log.info("T1:烧开水...");
         TimeUnit.SECONDS.sleep(15);
         // 获取T2线程的茶叶
         String tf = ft2.get();
-        System.out.println("T1:拿到茶叶:" + tf);
+        log.info("T1:拿到茶叶:" + tf);
 
-        System.out.println("T1:泡茶...");
+        log.info("T1:泡茶...");
         return "上茶:" + tf;
     }
 }
 
 // T2Task需要执行的任务:
 // 洗茶壶、洗茶杯、拿茶叶
+@Slf4j
 class T2Task implements Callable<String> {
     @Override
     public String call() throws Exception {
-        System.out.println("T2:洗茶壶...");
+        log.info("T2:洗茶壶...");
         TimeUnit.SECONDS.sleep(1);
 
-        System.out.println("T2:洗茶杯...");
+        log.info("T2:洗茶杯...");
         TimeUnit.SECONDS.sleep(2);
 
-        System.out.println("T2:拿茶叶...");
+        log.info("T2:拿茶叶...");
         TimeUnit.SECONDS.sleep(1);
         return "龙井";
     }
