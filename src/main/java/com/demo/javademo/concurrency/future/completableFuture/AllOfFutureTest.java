@@ -16,18 +16,47 @@ import java.util.concurrent.TimeUnit;
 public class AllOfFutureTest {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
-        CompletableFuture<Void> a = CompletableFuture.runAsync(() -> {
-            System.out.println(Thread.currentThread().getName() + "我执行完了");
-        });
-        CompletableFuture<Void> b = CompletableFuture.runAsync(() -> {
+        log.info("AnyOfFutureTest start");
+        CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
             try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println(Thread.currentThread().getName() + "我也执行完了");
+            return "future1 finished";
         });
-        CompletableFuture<Void> allOfFuture = CompletableFuture.allOf(a, b).whenComplete((m, k) ->
-                System.out.println(Thread.currentThread().getName() + "-finish"));
+
+        CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "future2 finished";
+        });
+
+        CompletableFuture<Void> combindFuture = CompletableFuture.allOf(future1, future2);
+        try {
+            combindFuture.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        log.info("future1:{}，future2: {}", future1.get(), future2.get());
+
+//        CompletableFuture<Void> a = CompletableFuture.runAsync(() -> {
+//            System.out.println(Thread.currentThread().getName() + "我执行完了");
+//        });
+//        CompletableFuture<Void> b = CompletableFuture.runAsync(() -> {
+//            try {
+//                TimeUnit.SECONDS.sleep(1);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            System.out.println(Thread.currentThread().getName() + "我也执行完了");
+//        });
+//        CompletableFuture<Void> allOfFuture = CompletableFuture.allOf(a, b).whenComplete((m, k) ->
+//                System.out.println(Thread.currentThread().getName() + "-finish"));
     }
 }

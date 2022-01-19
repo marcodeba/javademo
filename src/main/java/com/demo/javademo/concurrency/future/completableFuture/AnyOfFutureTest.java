@@ -16,20 +16,25 @@ import java.util.concurrent.TimeUnit;
 public class AnyOfFutureTest {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-
-        CompletableFuture<Void> a = CompletableFuture.runAsync(() -> {
+        log.info("AnyOfFutureTest start");
+        CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
             try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
+                TimeUnit.SECONDS.sleep(4);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            log.info("我执行完了");
+            return "hello";
         });
-        CompletableFuture<Void> b = CompletableFuture.runAsync(() -> log.info("我也执行完了"));
-        CompletableFuture<Object> anyOfFuture = CompletableFuture.anyOf(a, b).whenComplete((m, k) -> {
-            log.info("finish");
-//            return "捡田螺的小男孩";
+
+        CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "world";
         });
-        anyOfFuture.join();
+        CompletableFuture<Object> result = CompletableFuture.anyOf(future1, future2);
+        log.info("result: {}", result.get());
     }
 }

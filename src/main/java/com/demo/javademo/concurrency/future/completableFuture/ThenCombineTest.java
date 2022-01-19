@@ -25,7 +25,7 @@ public class ThenCombineTest {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            log.info("first task finished");
+            //log.info("first task finished");
             return "第一个异步任务";
         }, executor);
 
@@ -36,7 +36,7 @@ public class ThenCombineTest {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            log.info("second task finished");
+            //log.info("second task finished");
             return "第二个异步任务";
         }, executor)
                 .thenCombineAsync(first, (s, w) -> {
