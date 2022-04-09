@@ -18,20 +18,17 @@ public class ReverseList {
     }
 
     public static Node reverseList(Node head) {
-        if (head == null) return null;
+        if (head == null) throw new IllegalArgumentException("链表为空");
 
-        Node previous = head;
-        Node current = head.next;
-        Node tempNode;
+        Node current = head, preview = null;
         while (current != null) {
-            tempNode = current.next;
-            current.next = previous;
-            previous = current;
-            current = tempNode;
+            Node next = current.next;
+            current.next = preview;
+            preview = current;
+            current = next;
         }
-        head.setNext(null);
 
-        return previous;
+        return preview;
     }
 
     static class Node {

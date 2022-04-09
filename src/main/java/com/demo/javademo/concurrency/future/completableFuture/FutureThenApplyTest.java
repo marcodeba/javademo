@@ -13,8 +13,9 @@ import java.util.concurrent.TimeUnit;
  * @date: 2022年01月19日 2:19 下午
  * <p>
  * CompletableFuture的thenApply方法表示，第一个任务执行完成后，
- * 执行第二个回调方法任务，会将该任务的执行结果，作为入参，传递到回调方法中，
+ * 执行第二个回调方法任务，会将该任务的执行结果作为入参，传递到回调方法中，
  * 并且回调方法是有返回值的。
+ * 两个任务串行行执行，总耗时=total(a,b)，a执行的结果对b可见
  */
 @Slf4j
 public class FutureThenApplyTest {

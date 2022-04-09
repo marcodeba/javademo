@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 /**
  * @author：marco.pan
@@ -13,10 +14,10 @@ import java.util.concurrent.TimeUnit;
  * @date: 2022年01月19日 2:13 下午
  * <p>
  * CompletableFuture的thenAccept方法表示，第一个任务执行完成后，执行第二个回调方法任务，会将该任务的执行结果作为入参，
- * 传递到回调方法中，但是回调方法是没有返回值的。
+ * 传递到回调方法中，但是回调方法是没有返回值的。两个任务串行行执行，总耗时=total(a,b)，a执行的结果对b可见
  */
 @Slf4j
-public class FutureThenAcceptTest {
+public class ThenAcceptTest {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         log.info("FutureThenAcceptTest start");
 
@@ -32,17 +33,32 @@ public class FutureThenAcceptTest {
                 }
         );
 
-        CompletableFuture<Void> thenAcceptFuture = orgFuture.thenAccept((result) -> {
-            try {
-                TimeUnit.SECONDS.sleep(3);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        CompletableFuture<Void> thenAcceptFuture = orgFuture.thenAccept(new Consumer<String>() {
+            @Override
+            public void accept(String result) {
+                try {
+                    TimeUnit.SECONDS.sleep(3);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if ("捡田螺的小男孩".equals(result)) {
+                    log.info("关注了{}", result);
+                }
             }
-            if ("捡田螺的小男孩".equals(result)) {
-                log.info("关注了{}", result);
-            }
-            log.info("先考虑考虑");
         });
         log.info("thenAcceptFuture.get: {}", thenAcceptFuture.get());
+
+//        CompletableFuture<Void> thenAcceptFuture = orgFuture.thenAccept((result) -> {
+//            try {
+//                TimeUnit.SECONDS.sleep(3);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            if ("捡田螺的小男孩".equals(result)) {
+//                log.info("关注了{}", result);
+//            }
+//            log.info("先考虑考虑");
+//        });
+//        log.info("thenAcceptFuture.get: {}", thenAcceptFuture.get());
     }
 }

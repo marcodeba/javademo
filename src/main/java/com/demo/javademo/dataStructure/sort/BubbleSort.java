@@ -2,6 +2,10 @@ package com.demo.javademo.dataStructure.sort;
 
 import java.util.Arrays;
 
+/**
+ * 冒泡排序只会操作相邻的两个数据。每次冒泡操作都会对相邻的两个元素进行比较，看是否满足大小关系要求。
+ * 如果不满足就让它俩互换。
+ */
 public class BubbleSort {
     /**
      * Version 0.1
@@ -39,9 +43,11 @@ public class BubbleSort {
                     int tmp = array[j];
                     array[j] = array[j + 1];
                     array[j + 1] = tmp;
+                    // 此次冒泡有数据交换
                     isSorted = false;
                 }
             }
+            // 没有数据交换，提前退出
             if (isSorted) break;
         }
     }

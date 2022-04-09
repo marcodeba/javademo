@@ -11,7 +11,7 @@ import java.util.concurrent.*;
  * @date: 2022年01月19日 2:52 下午
  * <p>
  * thenCombine / thenAcceptBoth / runAfterBoth都表示：将两个CompletableFuture组合起来，
- * 只有这两个都正常执行完了，才会执行某个任务。
+ * 只有这两个都正常执行完了，才会执行某个任务，两个任务并行执行，总耗时=Max(a,b)
  */
 @Slf4j
 public class ThenCombineTest {

@@ -7,7 +7,7 @@ package com.demo.javademo.concurrency.threadPool;
  * @date: 2021年12月21日 4:32 下午
  */
 public class CPUUtilizationTest {
-//    public static void main(String[] args) {
+    //    public static void main(String[] args) {
 //        for (int j = 0; j < 8; j++) {
 //            new Thread(() -> {
 //                while (true) {
@@ -24,8 +24,7 @@ public class CPUUtilizationTest {
                     }
                     try {
                         Thread.sleep(50);
-                    }
-                    catch (InterruptedException e) {
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
